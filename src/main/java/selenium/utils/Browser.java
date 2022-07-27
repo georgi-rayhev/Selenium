@@ -1,3 +1,5 @@
+package selenium.utils;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Browser {
 
-    private static WebDriver driver = null;
+    public static WebDriver driver;
     public static void openBrowser() throws MalformedURLException {
         ChromeOptions chromeOptions = new ChromeOptions();
         driver = new RemoteWebDriver(new URL("http://localhost:4545"), chromeOptions);
