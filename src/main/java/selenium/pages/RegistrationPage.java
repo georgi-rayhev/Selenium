@@ -1,5 +1,6 @@
 package selenium.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
@@ -20,9 +21,7 @@ public class RegistrationPage extends BasePage {
     By firstName = By.name("firstName");
     By lastName = By.name("lastName");
     By selectCountryDropDown = By.xpath("//div[@class='tab-content']/div[2]//form/div[6]/select");
-    By countryOption = By.xpath("//div[@class='tab-content']/div[2]//form/div[6]/select//option[3]");
     By selectStateDropDown = By.xpath("//div[@id='root']/div[4]//div[@class='tab-content']/div[2]//form/div[7]/select");
-    By stateOption = By.xpath("//div[@class='tab-content']/div[2]//form/div[7]/select//option[@value='QC']");
     By registrationButton = By.xpath("//span[.='Register']");
     By errorMessage = By.cssSelector(".error-msg");
     By emailErrorMessage = By.cssSelector("div:nth-of-type(1) > .error-msg");
@@ -66,13 +65,15 @@ public class RegistrationPage extends BasePage {
     }
 
     public void selectCountry() {
-    clickOn(selectCountryDropDown);
-    clickOn(countryOption);
+        Select select = new Select(findElement(selectCountryDropDown));
+        select.selectByIndex(2);
+        Assert.assertFalse(select.isMultiple());
     }
 
     public void selectState() {
-        clickOn(selectStateDropDown);
-        clickOn(stateOption);
+        Select select = new Select(findElement(selectStateDropDown));
+        select.selectByIndex(3);
+        Assert.assertFalse(select.isMultiple());
     }
     public void navigateToRegistrationPage(){
         navigateTo(REGISTRATION_URL);
