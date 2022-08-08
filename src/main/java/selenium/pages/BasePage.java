@@ -12,9 +12,7 @@ import static selenium.utils.Browser.driver;
 
 public class BasePage {
 
-
     public WebDriverWait wait;
-
 
 
 //    public void waitElementToBeVisible(By element) {

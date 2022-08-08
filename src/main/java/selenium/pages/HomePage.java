@@ -1,36 +1,20 @@
 package selenium.pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
+import selenium.models.User;
+
+import static selenium.utils.Browser.driver;
 
 public class HomePage extends BasePage {
+    private final static String HOME_PAGE_URL = "http://localhost/";
 
-    private final static String HOME_PAGE_URL = "https://www.aboutyou.bg/";
-
-    private String title = "";
-
-
-    By profileIcon = By.cssSelector(".userIcon--zdWV7");
-    By headerLogo = By.cssSelector("[class='sc-t6bp6s-3 figUyy']");
-    By shoes = By.xpath("//span[@data-test-id='Label_Обувки']");
-    By cookiesOkButton = By.cssSelector("#onetrust-accept-btn-handler");
-
-
+    By accountButton = By.cssSelector(".pe-7s-user-female");
+    By loginButton = By.linkText("Login");
+    By registrationButton = By.linkText("Register");
 
     public void goToHomePage(){
         navigateTo(HOME_PAGE_URL);
     }
-
-    public void goToRegistrationLoginPage() {
-        navigateTo(HOME_PAGE_URL);
-        clickOn(cookiesOkButton);
-        clickOn(profileIcon);
-    }
-
-
-
-
-
 
 }
 

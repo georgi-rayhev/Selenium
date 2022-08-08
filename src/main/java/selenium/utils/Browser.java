@@ -16,7 +16,7 @@ public class Browser {
         ChromeOptions chromeOptions = new ChromeOptions();
         driver = new RemoteWebDriver(new URL("http://localhost:4545"), chromeOptions);
         driver.get("http://www.google.com");
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
     }
     public static void closeBrowser() {

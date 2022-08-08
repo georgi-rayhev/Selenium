@@ -1,18 +1,21 @@
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import selenium.models.User;
 import selenium.pages.*;
 import selenium.utils.Browser;
+import selenium.utils.UserHelper;
 
 import java.net.MalformedURLException;
 
+import static selenium.utils.Browser.driver;
+
 public class TestClass {
 
-    RegistrationLoginPage registrationLoginPage = new RegistrationLoginPage();
     HomePage homePage = new HomePage();
-
+    LoginPage loginPage = new LoginPage();
+    RegistrationPage registrationPage = new RegistrationPage();
+    User newUser = UserHelper.buildUser();
 
     @BeforeEach
     public void startBrowser() throws MalformedURLException {
@@ -24,20 +27,17 @@ public class TestClass {
         Browser.closeBrowser();
     }
 
-//    @Test
-//    public void userRegistration() throws MalformedURLException {
-//        User newUser = registrationLoginPage.buildUser();
-//        System.out.println(newUser);
-//        homePage.goToHomePage();
-//        registrationLoginPage.clickOnRegistrationForm();
-//        registrationLoginPage.createAccount(newUser);
-//    }
-
     @Test
-    public void goToHomePage() {
-        homePage.goToRegistrationLoginPage();
-        registrationLoginPage.compareTitles();
-        User newUser = registrationLoginPage.buildUser();
-        registrationLoginPage.createAccount(newUser);
-    }
+    public void registration() {
+        registrationPage.navigateToRegistrationPage();
+        registrationPage.createAccount(newUser);
+  }
+
+  @Test
+    public void login() {
+        loginPage.navigateToLoginPage();
+        loginPage.login(newUser);
+
+  }
+
 }
