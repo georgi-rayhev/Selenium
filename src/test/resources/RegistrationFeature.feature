@@ -15,4 +15,17 @@ Feature: In this feature we will test Registration functionality
     When Try to register
     Then Verify that all proper error messages are displayed
 
-    Scenario:
+    Scenario: Try to make registration without one required field
+      When Try to register with empty email
+      And  Try to register
+      Then Verify email error message is displayed
+      When Try to register with empty password
+      And  Try to register
+      Then Verify password error message is displayed
+      When Try to register with empty repeated password
+      And  Try to register
+      Then Verify repeated password error message is displayed
+      When Try to register without firstName
+      And  Try to register
+
+

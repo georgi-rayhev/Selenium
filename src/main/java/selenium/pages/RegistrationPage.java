@@ -97,5 +97,110 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
+    public void createAccountWithoutLastNcreateAcame(String registerEmail,String registerPassword, String registerRepeatedPassword, String registerFirstName) {
+        writeText(email,registerEmail);
+        writeText(password,registerPassword);
+        writeText(repeatPassword,registerRepeatedPassword);
+        writeText(firstName,registerFirstName);
+        selectCountry();
+        selectState();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
+    public void createAccountWithoutFirstName(String registerEmail,String registerPassword, String registerRepeatedPassword, String registerLastName) {
+        writeText(email,registerEmail);
+        writeText(password,registerPassword);
+        writeText(repeatPassword,registerRepeatedPassword);
+        writeText(lastName,registerLastName);
+        selectCountry();
+        selectState();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
+    public void createAccountWithoutEmail(String registerPassword, String registerRepeatedPassword, String registerLastName) {
+        writeText(password,registerPassword);
+        writeText(repeatPassword,registerRepeatedPassword);
+        writeText(lastName,registerLastName);
+        selectCountry();
+        selectState();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
+    public void createAccountWithoutPassword(String registerEmail, String registerRepeatedPassword, String registerLastName) {
+        writeText(email,registerEmail);
+        writeText(repeatPassword,registerRepeatedPassword);
+        writeText(lastName,registerLastName);
+        selectCountry();
+        selectState();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
+    public void createAccountWithoutRepeatedPassword(String registerEmail,String registerPassword, String registerLastName) {
+        writeText(email,registerEmail);
+        writeText(password,registerPassword);
+        writeText(lastName,registerLastName);
+        selectCountry();
+        selectState();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
+    public void createAccountWithoutSelectedCountry(String registerEmail,String registerPassword, String registerLastName) {
+        writeText(email,registerEmail);
+        writeText(password,registerPassword);
+        writeText(lastName,registerLastName);
+        selectState();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
+    public void createAccountWithoutSelectedState(String registerEmail,String registerPassword, String registerLastName) {
+        writeText(email,registerEmail);
+        writeText(password,registerPassword);
+        writeText(lastName,registerLastName);
+        selectCountry();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
 
 }
