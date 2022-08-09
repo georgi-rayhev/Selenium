@@ -125,7 +125,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithInvalidCredentials(String regEmail, String regPassword, String regRepeatedPassword, String regFirstName, String regLastName) {
@@ -140,7 +140,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutLastName(User user) {
@@ -156,7 +156,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutFirstName(User user) {
@@ -172,7 +172,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutEmail(User user) {
@@ -188,7 +188,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutPassword(User user) {
@@ -204,7 +204,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutRepeatedPassword(User user) {
@@ -220,7 +220,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutSelectedCountry(User user) {
@@ -235,7 +235,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutSelectedState(User user) {
@@ -250,7 +250,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 
     public void createAccountWithMissMatchPasswords(User user) {
@@ -266,6 +266,6 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.verifyTitle();
+        myAccountPage.titleVerification();
     }
 }

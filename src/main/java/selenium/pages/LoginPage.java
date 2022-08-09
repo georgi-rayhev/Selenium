@@ -3,7 +3,6 @@ package selenium.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import static selenium.utils.Browser.driver;
 
@@ -16,11 +15,8 @@ public class LoginPage extends BasePage {
 
     By email = By.name("username");
     By password = By.name("loginPassword");
-    By loginButton = By.xpath("//button[@type='submit' and contains(., 'Login')]");
-    By errorMessageForInvalidLogin = By.xpath("//div[.='Incorrect username or password']");
-    By errorMessageForInvalidEmail = By.cssSelector(".error-msg");
-    By cookiesButton = By.cssSelector("#rcc-confirm-button");
-
+    By errorMessageForInvalidLogin = By.cssSelector(".css-1ad3zal.react-toast-notifications__toast__content");
+    By errorMessage = By.cssSelector(".error-msg");
 
 
     public boolean isErrorMessageForInvalidLoginDisplayed() {
@@ -29,11 +25,6 @@ public class LoginPage extends BasePage {
         return findElement(errorMessageForInvalidLogin).isDisplayed();
     }
 
-    public boolean isErrorMessageForInvalidEmailDisplayed() {
-        String errorMessage = "Please entered the valid email id";
-        findElement(errorMessageForInvalidEmail).getText().equalsIgnoreCase(errorMessage);
-        return findElement(errorMessageForInvalidEmail).isDisplayed();
-    }
 
     public void clickOnLoginButton() {
         WebElement element = driver.findElement(By.xpath("//button[@type='submit']/span[text()='Login']"));
@@ -43,13 +34,25 @@ public class LoginPage extends BasePage {
 
     public void navigateToLoginPage() {
         navigateTo(LOGIN_URL);
+    }
+
+    public void titleVerification(){
         verifyTitlesAreEquals(title);
     }
     public void login(String emailForLogin, String passwordForLogin)  {
         writeText(email,emailForLogin);
         writeText(password,passwordForLogin);
         clickOnLoginButton();
-        myAccountPage.verifyTitle();
+    }
+
+    public String getEmailErrorText() {
+        String errorText = findElement(errorMessage).getText();
+        return errorText;
+    }
+
+    public String getFailedLoginErrorText() {
+        String errorText = findElement(errorMessageForInvalidLogin).getText();
+        return errorText;
     }
 }
 
