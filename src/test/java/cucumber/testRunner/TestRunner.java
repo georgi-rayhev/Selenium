@@ -1,4 +1,4 @@
-package cucumber.runner;
+package cucumber.testRunner;
 
 
 import io.cucumber.junit.Cucumber;

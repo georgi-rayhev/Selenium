@@ -1,3 +1,4 @@
+@Login
 Feature: In this feature we will test Login functionality
 
   Background:
@@ -5,7 +6,6 @@ Feature: In this feature we will test Login functionality
     Then  Verify we are at Login page
 
     ##Positive scenario
-  @Login
   Scenario: Login successfully
     When  Enter valid credentials
     Then  Verify login is successful

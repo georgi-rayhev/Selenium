@@ -35,11 +35,6 @@ public class LoginPage extends BasePage {
         return findElement(errorMessageForInvalidEmail).isDisplayed();
     }
 
-    public String getEmailErrorText() {
-        findElement(errorMessageForInvalidEmail).getText();
-        return String.valueOf(findElement(errorMessageForInvalidEmail));
-    }
-
     public void clickOnLoginButton() {
         WebElement element = driver.findElement(By.xpath("//button[@type='submit']/span[text()='Login']"));
         JavascriptExecutor executor = (JavascriptExecutor)driver;
