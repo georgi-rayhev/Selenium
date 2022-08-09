@@ -1,7 +1,11 @@
 package selenium.pages;
 
 import org.openqa.selenium.By;
-import selenium.models.User;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import static selenium.utils.Browser.driver;
 
 public class LoginPage extends BasePage {
 
@@ -12,20 +16,45 @@ public class LoginPage extends BasePage {
 
     By email = By.name("username");
     By password = By.name("loginPassword");
-    By loginButton = By.cssSelector(".tab-content > div:nth-of-type(1)");
+    By loginButton = By.xpath("//button[@type='submit' and contains(., 'Login')]");
+    By errorMessageForInvalidLogin = By.xpath("//div[.='Incorrect username or password']");
+    By errorMessageForInvalidEmail = By.cssSelector(".error-msg");
+    By cookiesButton = By.cssSelector("#rcc-confirm-button");
 
-    String emailForLogin = "georgi_raychev7@abv.bg";
-    String passwordForLogin = "123123@!";
+
+
+    public boolean isErrorMessageForInvalidLoginDisplayed() {
+        String errorMessage = "Incorrect username or password";
+        findElement(errorMessageForInvalidLogin).getText().equalsIgnoreCase(errorMessage);
+        return findElement(errorMessageForInvalidLogin).isDisplayed();
+    }
+
+    public boolean isErrorMessageForInvalidEmailDisplayed() {
+        String errorMessage = "Please entered the valid email id";
+        findElement(errorMessageForInvalidEmail).getText().equalsIgnoreCase(errorMessage);
+        return findElement(errorMessageForInvalidEmail).isDisplayed();
+    }
+
+    public String getEmailErrorText() {
+        findElement(errorMessageForInvalidEmail).getText();
+        return String.valueOf(findElement(errorMessageForInvalidEmail));
+    }
+
+    public void clickOnLoginButton() {
+        WebElement element = driver.findElement(By.xpath("//button[@type='submit']/span[text()='Login']"));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
 
     public void navigateToLoginPage() {
         navigateTo(LOGIN_URL);
         verifyTitlesAreEquals(title);
     }
-
-    public void login(User user) {
+    public void login(String emailForLogin, String passwordForLogin)  {
         writeText(email,emailForLogin);
-        writeText(password, passwordForLogin);
-        clickOn(loginButton);
-        myAccountPage.verifyTitleAfterLogin();
+        writeText(password,passwordForLogin);
+        clickOnLoginButton();
+        myAccountPage.verifyTitle();
     }
 }
+

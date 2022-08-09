@@ -5,18 +5,22 @@ Feature: In this feature we will test Login functionality
     Then  Verify we are at Login page
 
     ##Positive scenario
+  @Login
   Scenario: Login successfully
     When  Enter valid credentials
     Then  Verify login is successful
 
     ##Negative scenarios
-  Scenario: Try to Login without email or with wrong email
+  Scenario: Try to Login without email or with wrong and invalid email
     When Enter valid password
     And  Try to login
     Then Verify that email error message is displayed
     When Enter wrong email
     And  Try to login
     Then Verify that email error message is displayed
+    When Try to login with invalid email
+    And  Try to login
+    Then Verify that error message for invalid email is displayed
 
     Scenario: Try to Login without password or with wrong password
       When Enter valid email

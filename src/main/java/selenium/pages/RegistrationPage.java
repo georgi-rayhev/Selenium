@@ -2,7 +2,6 @@ package selenium.pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import selenium.models.User;
 
@@ -37,32 +36,64 @@ public class RegistrationPage extends BasePage {
     }
 
     public boolean isNameFieldErrorMessageDisplayed() {
+        String errorMessage = "Firstname is required";
+        findElement(nameFieldErrorMessage).getText().equalsIgnoreCase(errorMessage);
         return findElement(nameFieldErrorMessage).isDisplayed();
     }
 
     public boolean isLastNameErrorMessageDisplayed() {
+        String errorMessage = "Lastname is required";
+        findElement(lastNameErrorMessage).getText().equalsIgnoreCase(errorMessage);
         return findElement(lastNameErrorMessage).isDisplayed();
     }
 
     public boolean isEmailErrorMessageDisplayed() {
+        String errorMessage = "Email is required";
+        findElement(emailErrorMessage).getText().equalsIgnoreCase(errorMessage);
+        return findElement(emailErrorMessage).isDisplayed();
+    }
+    public boolean isInvalidEmailErrorMessageDisplayed() {
+        String errorMessage = "Please entered the valid email id";
+        findElement(emailErrorMessage).getText().equalsIgnoreCase(errorMessage);
         return findElement(emailErrorMessage).isDisplayed();
     }
 
     public boolean isPasswordErrorMessageDisplayed() {
+        String errorMessage = "Password is required";
+        findElement(passwordErrorMessage).getText().equalsIgnoreCase(errorMessage);
+        return findElement(passwordErrorMessage).isDisplayed();
+    }
+
+    public boolean isInvalidPasswordErrorMessageDisplayed() {
+        String errorMessage = "Password must be minimum of 8 characters atleast one number and one special character";
+        findElement(passwordErrorMessage).getText().equalsIgnoreCase(errorMessage);
         return findElement(passwordErrorMessage).isDisplayed();
     }
 
     public boolean isRepeatedPasswordErrorMessageDisplayed() {
+        String errorMessage = "Repeat Password is required";
+        findElement(passwordRepeatedErrorMessage).getText().equalsIgnoreCase(errorMessage);
         return findElement(passwordRepeatedErrorMessage).isDisplayed();
     }
 
-    public boolean isStateErrorMessageDisplayed() {
-        return findElement(stateErrorMessage).isDisplayed();
+    public boolean isRepeatedPasswordMissMatchErrorMessageDisplayed() {
+        String errorMessage = "Repeat Password should be the same as a password";
+        findElement(passwordRepeatedErrorMessage).getText().equalsIgnoreCase(errorMessage);
+        return findElement(passwordRepeatedErrorMessage).isDisplayed();
     }
 
     public boolean isCountryErrorMessageDisplayed() {
+        String errorMessage = "Country is required";
+        findElement(countryErrorMessage).getText().equalsIgnoreCase(errorMessage);
         return findElement(countryErrorMessage).isDisplayed();
     }
+
+    public boolean isStateErrorMessageDisplayed() {
+        String errorMessage = "State is required";
+        findElement(stateErrorMessage).getText().equalsIgnoreCase(errorMessage);
+        return findElement(stateErrorMessage).isDisplayed();
+    }
+
 
     public void selectCountry() {
         Select select = new Select(findElement(selectCountryDropDown));
@@ -97,11 +128,26 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-    public void createAccountWithoutLastNcreateAcame(String registerEmail,String registerPassword, String registerRepeatedPassword, String registerFirstName) {
-        writeText(email,registerEmail);
-        writeText(password,registerPassword);
-        writeText(repeatPassword,registerRepeatedPassword);
-        writeText(firstName,registerFirstName);
+    public void createAccountWithInvalidCredentials(String regEmail, String regPassword, String regRepeatedPassword, String regFirstName, String regLastName) {
+        writeText(email,regEmail);
+        writeText(password,regPassword);
+        writeText(repeatPassword,regRepeatedPassword);
+        writeText(firstName,regFirstName);
+        writeText(lastName,regLastName);
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
+
+    public void createAccountWithoutLastName(User user) {
+        writeText(email, user.getEmail());
+        writeText(password,user.getPassword());
+        writeText(repeatPassword,user.getPassword());
+        writeText(firstName,user.getFirstName());
         selectCountry();
         selectState();
         clickOn(registrationButton);
@@ -113,11 +159,11 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-    public void createAccountWithoutFirstName(String registerEmail,String registerPassword, String registerRepeatedPassword, String registerLastName) {
-        writeText(email,registerEmail);
-        writeText(password,registerPassword);
-        writeText(repeatPassword,registerRepeatedPassword);
-        writeText(lastName,registerLastName);
+    public void createAccountWithoutFirstName(User user) {
+        writeText(email,user.getEmail());
+        writeText(password,user.getPassword());
+        writeText(repeatPassword,user.getPassword());
+        writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
         clickOn(registrationButton);
@@ -129,10 +175,11 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-    public void createAccountWithoutEmail(String registerPassword, String registerRepeatedPassword, String registerLastName) {
-        writeText(password,registerPassword);
-        writeText(repeatPassword,registerRepeatedPassword);
-        writeText(lastName,registerLastName);
+    public void createAccountWithoutEmail(User user) {
+        writeText(password,user.getPassword());
+        writeText(repeatPassword,user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
         clickOn(registrationButton);
@@ -144,10 +191,11 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-    public void createAccountWithoutPassword(String registerEmail, String registerRepeatedPassword, String registerLastName) {
-        writeText(email,registerEmail);
-        writeText(repeatPassword,registerRepeatedPassword);
-        writeText(lastName,registerLastName);
+    public void createAccountWithoutPassword(User user) {
+        writeText(email,user.getEmail());
+        writeText(repeatPassword,user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
         clickOn(registrationButton);
@@ -159,10 +207,11 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-    public void createAccountWithoutRepeatedPassword(String registerEmail,String registerPassword, String registerLastName) {
-        writeText(email,registerEmail);
-        writeText(password,registerPassword);
-        writeText(lastName,registerLastName);
+    public void createAccountWithoutRepeatedPassword(User user) {
+        writeText(email,user.getEmail());
+        writeText(password,user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
         clickOn(registrationButton);
@@ -174,10 +223,11 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-    public void createAccountWithoutSelectedCountry(String registerEmail,String registerPassword, String registerLastName) {
-        writeText(email,registerEmail);
-        writeText(password,registerPassword);
-        writeText(lastName,registerLastName);
+    public void createAccountWithoutSelectedCountry(User user) {
+        writeText(email,user.getEmail());
+        writeText(password,user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
         selectState();
         clickOn(registrationButton);
         if(driver.findElements(errorMessage).size() != 0) {
@@ -188,10 +238,11 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-    public void createAccountWithoutSelectedState(String registerEmail,String registerPassword, String registerLastName) {
-        writeText(email,registerEmail);
-        writeText(password,registerPassword);
-        writeText(lastName,registerLastName);
+    public void createAccountWithoutSelectedState(User user) {
+        writeText(email,user.getEmail());
+        writeText(password, user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
         selectCountry();
         clickOn(registrationButton);
         if(driver.findElements(errorMessage).size() != 0) {
@@ -202,5 +253,19 @@ public class RegistrationPage extends BasePage {
         myAccountPage.verifyTitle();
     }
 
-
+    public void createAccountWithMissMatchPasswords(User user) {
+        writeText(email,user.getEmail());
+        writeText(password, user.getPassword());
+        writeText(repeatPassword,"123132");
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
+        selectCountry();
+        clickOn(registrationButton);
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.verifyTitle();
+    }
 }

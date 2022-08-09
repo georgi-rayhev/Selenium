@@ -2,7 +2,7 @@ package selenium.pages;
 
 public class MyAccountPage extends BasePage {
 
-    String title = "Default store | My Account";
+    String title = "Default store | Login";
     String secondTitle = "Default store | Login";
 
     public void verifyTitle() {

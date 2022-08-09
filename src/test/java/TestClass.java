@@ -8,8 +8,6 @@ import selenium.utils.UserHelper;
 
 import java.net.MalformedURLException;
 
-import static selenium.utils.Browser.driver;
-
 public class TestClass {
 
     HomePage homePage = new HomePage();
@@ -34,10 +32,15 @@ public class TestClass {
   }
 
   @Test
-    public void login() {
+    public void login(){
         loginPage.navigateToLoginPage();
-        loginPage.login(newUser);
+        loginPage.login("georgi_raychev7@abv.bg","123123@!");
 
   }
 
+  @Test
+    public void unsuccessfulLogin() {
+        loginPage.navigateToLoginPage();
+     //   loginPage.login
+  }
 }
