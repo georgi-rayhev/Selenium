@@ -28,7 +28,7 @@ public class TestClass {
     @Test
     public void registration() {
         registrationPage.navigateToRegistrationPage();
-        registrationPage.createAccount(newUser);
+        registrationPage.createAccountWithMissMatchPasswords(newUser);
   }
 
   @Test

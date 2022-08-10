@@ -2,6 +2,8 @@ package selenium.pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import selenium.models.User;
 
@@ -20,9 +22,9 @@ public class RegistrationPage extends BasePage {
     By firstName = By.name("firstName");
     By lastName = By.name("lastName");
     By selectCountryDropDown = By.xpath("//div[@class='tab-content']/div[2]//form/div[6]/select");
-    By selectStateDropDown = By.xpath("//div[@id='root']/div[4]//div[@class='tab-content']/div[2]//form/div[7]/select");
-    By registrationButton = By.xpath("//span[.='Register']");
+    By selectStateDropDown = By.xpath("//div[@class='tab-content']/div[2]//form/div[7]/select");
     By errorMessage = By.cssSelector(".error-msg");
+    By usedEmailErrorMessage = By.xpath("//div[.='Registering customer already exist']");
     By emailErrorMessage = By.cssSelector("div:nth-of-type(1) > .error-msg");
     By nameFieldErrorMessage = By.cssSelector("div:nth-of-type(4) > .error-msg");
     By lastNameErrorMessage = By.cssSelector("div:nth-of-type(5) > .error-msg");
@@ -31,6 +33,15 @@ public class RegistrationPage extends BasePage {
     By stateErrorMessage = By.cssSelector("div:nth-of-type(7) > .error-msg");
     By countryErrorMessage = By.cssSelector("div:nth-of-type(6) > .error-msg");
 
+    public void titleVerification() {
+        verifyTitlesAreEquals(title);
+    }
+
+    public void clickOnRegButton(){
+        WebElement element = driver.findElement(By.xpath("//span[.='Register']"));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
     public boolean isErrorMessageDisplayed() {
         return findElement(errorMessage).isDisplayed();
     }
@@ -94,6 +105,10 @@ public class RegistrationPage extends BasePage {
         return findElement(stateErrorMessage).isDisplayed();
     }
 
+    public boolean isAlreadyUsedEmailErrorMessageIsDisplayed() {
+        return findElement(usedEmailErrorMessage).isDisplayed();
+    }
+
 
     public void selectCountry() {
         Select select = new Select(findElement(selectCountryDropDown));
@@ -108,7 +123,6 @@ public class RegistrationPage extends BasePage {
     }
     public void navigateToRegistrationPage(){
         navigateTo(REGISTRATION_URL);
-        verifyTitlesAreEquals(title);
     }
 
     public void createAccount(User user) {
@@ -119,28 +133,46 @@ public class RegistrationPage extends BasePage {
         writeText(repeatPassword,user.getPassword());
         selectCountry();
         selectState();
-        clickOn(registrationButton);
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
     }
 
-    public void createAccountWithInvalidCredentials(String regEmail, String regPassword, String regRepeatedPassword, String regFirstName, String regLastName) {
-        writeText(email,regEmail);
-        writeText(password,regPassword);
-        writeText(repeatPassword,regRepeatedPassword);
-        writeText(firstName,regFirstName);
-        writeText(lastName,regLastName);
-        clickOn(registrationButton);
+    public void createAccountWithInvalidEmail(User user) {
+        writeText(email,"asdasdasd.bg");
+        writeText(password,user.getPassword());
+        writeText(repeatPassword,user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
+        selectCountry();
+        selectState();
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
+        myAccountPage.titleVerificationAfterLogin();
+    }
+
+    public void createAccountWithInvalidPassword(User user) {
+        writeText(email,user.getEmail());
+        writeText(password,"12312@!");
+        writeText(repeatPassword,user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
+        selectCountry();
+        selectState();
+        clickOnRegButton();
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully");
+        }
+        myAccountPage.titleVerificationAfterLogin();
     }
 
     public void createAccountWithoutLastName(User user) {
@@ -150,13 +182,13 @@ public class RegistrationPage extends BasePage {
         writeText(firstName,user.getFirstName());
         selectCountry();
         selectState();
-        clickOn(registrationButton);
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
+        myAccountPage.titleVerificationAfterLogin();
     }
 
     public void createAccountWithoutFirstName(User user) {
@@ -166,13 +198,13 @@ public class RegistrationPage extends BasePage {
         writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
-        clickOn(registrationButton);
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
+        myAccountPage.titleVerificationAfterLogin();
     }
 
     public void createAccountWithoutEmail(User user) {
@@ -182,13 +214,12 @@ public class RegistrationPage extends BasePage {
         writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
-        clickOn(registrationButton);
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
     }
 
     public void createAccountWithoutPassword(User user) {
@@ -198,13 +229,13 @@ public class RegistrationPage extends BasePage {
         writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
-        clickOn(registrationButton);
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
+        myAccountPage.titleVerificationAfterLogin();
     }
 
     public void createAccountWithoutRepeatedPassword(User user) {
@@ -214,58 +245,60 @@ public class RegistrationPage extends BasePage {
         writeText(lastName,user.getLastName());
         selectCountry();
         selectState();
-        clickOn(registrationButton);
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
+        myAccountPage.titleVerificationAfterLogin();
     }
 
-    public void createAccountWithoutSelectedCountry(User user) {
+    public void createAccountWithoutSelectedCountryAndState(User user) {
         writeText(email,user.getEmail());
         writeText(password,user.getPassword());
+        writeText(repeatPassword, user.getPassword());
         writeText(firstName,user.getFirstName());
         writeText(lastName,user.getLastName());
-        selectState();
-        clickOn(registrationButton);
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
-    }
-
-    public void createAccountWithoutSelectedState(User user) {
-        writeText(email,user.getEmail());
-        writeText(password, user.getPassword());
-        writeText(firstName,user.getFirstName());
-        writeText(lastName,user.getLastName());
-        selectCountry();
-        clickOn(registrationButton);
-        if(driver.findElements(errorMessage).size() != 0) {
-            System.out.println("User is not created");
-        } else {
-            System.out.println("User was created successfully");
-        }
-        myAccountPage.titleVerification();
+        myAccountPage.titleVerificationAfterLogin();
     }
 
     public void createAccountWithMissMatchPasswords(User user) {
         writeText(email,user.getEmail());
-        writeText(password, user.getPassword());
+        writeText(password, "123123@!");
         writeText(repeatPassword,"123132");
         writeText(firstName,user.getFirstName());
         writeText(lastName,user.getLastName());
         selectCountry();
-        clickOn(registrationButton);
+        selectState();
+        clickOnRegButton();
+        if(driver.findElements(errorMessage).size() != 0) {
+            System.out.println("User is not created");
+        } else {
+            System.out.println("User was created successfully and congrats you find a BUG <<<<<>>>>>>");
+        }
+    }
+
+    public void createAccountWithAlreadyUsedEmail(User user) {
+        writeText(email,"georgi_raychev7@abv.bg");
+        writeText(password,user.getPassword());
+        writeText(repeatPassword, user.getPassword());
+        writeText(firstName,user.getFirstName());
+        writeText(lastName,user.getLastName());
+        selectCountry();
+        selectState();
+        clickOnRegButton();
         if(driver.findElements(errorMessage).size() != 0) {
             System.out.println("User is not created");
         } else {
             System.out.println("User was created successfully");
         }
-        myAccountPage.titleVerification();
+        myAccountPage.titleVerificationAfterLogin();
     }
 }

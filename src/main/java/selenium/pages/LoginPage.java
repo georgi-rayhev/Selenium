@@ -49,10 +49,5 @@ public class LoginPage extends BasePage {
         String errorText = findElement(errorMessage).getText();
         return errorText;
     }
-
-    public String getFailedLoginErrorText() {
-        String errorText = findElement(errorMessageForInvalidLogin).getText();
-        return errorText;
-    }
 }
 

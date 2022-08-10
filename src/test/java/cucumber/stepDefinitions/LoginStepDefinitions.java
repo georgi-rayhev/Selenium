@@ -1,7 +1,5 @@
 package cucumber.stepDefinitions;
 
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -52,7 +50,7 @@ public class LoginStepDefinitions {
     }
     @Then("Verify login is successful")
     public void verify_login_is_successful() {
-       myAccountPage.titleVerification();
+       myAccountPage.titleVerificationAfterLogin();
        Browser.closeBrowser();
     }
     }

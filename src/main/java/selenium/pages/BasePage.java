@@ -14,17 +14,10 @@ public class BasePage {
 
     public WebDriverWait wait;
 
-
-//    public void waitElementToBeVisible(By element) {
-//        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
-//    }
-
     public void clickOn(By element) {
-     //   waitElementToBeVisible(element);
         driver.findElement(element).click();
     }
     public WebElement findElement(By element) {
-       // waitElementToBeVisible(element);
         return driver.findElement(element);
     }
 
