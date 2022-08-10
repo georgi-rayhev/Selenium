@@ -9,8 +9,6 @@ import selenium.utils.UserHelper;
 import java.net.MalformedURLException;
 
 public class TestClass {
-
-    HomePage homePage = new HomePage();
     LoginPage loginPage = new LoginPage();
     RegistrationPage registrationPage = new RegistrationPage();
     User newUser = UserHelper.buildUser();

@@ -139,6 +139,7 @@ public class RegistrationPage extends BasePage {
         } else {
             System.out.println("User was created successfully");
         }
+        myAccountPage.titleVerificationAfterRegistration();
     }
 
     public void createAccountWithInvalidEmail(User user) {
